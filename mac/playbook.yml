@@ -4,11 +4,14 @@
   become_user: root
   vars:
     usernames:
-      -  {name: hirorok}
-      -  {name: ansible}
+      - 'hirorok'
+      #- 'ansible'
+#      -  {name: hirorok}
+#      -  {name: ansible}
   tasks:
     - name: "add  a new user"
-      user: name= '{{item.name}}' state=absent
-#      user: name= {{item.name}} state=absent
-      with_items: 
+#      user: name= '{{item.name}}' state=absent
+#      user: name= '{{ item }}' #state=present
+      user: name= usernames #state=present
+      loop: 
         '{{ usernames }}'
