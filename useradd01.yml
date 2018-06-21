@@ -8,6 +8,6 @@
       - "ansible"
   tasks:
     - name: 'add users'
-      user: name="{{item}}" #state: present
+      user: name="{{item}}" state=present
       with_items: '{{users}}'
 
