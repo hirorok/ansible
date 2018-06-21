@@ -1,0 +1,11 @@
+--- # block separator
+- hosts: all
+  become: yes
+  become_user: root
+  vars:
+    username: 
+    - "hirorok"
+    - "ansible"
+  tasks:
+    - name: "add user"
+      user: name="{{username}}" state=present
