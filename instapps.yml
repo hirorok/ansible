@@ -1,0 +1,13 @@
+--- # block separator
+- hosts: web
+  become: true
+  become_user: root
+  tasks:
+    - apk: name=nginx state=present
+
+# - hosts: db
+#   become: true
+#   become_user: root
+#     name: 'database server'
+#     apk: 
+#       name=mysql state=present
