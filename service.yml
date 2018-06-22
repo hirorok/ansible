@@ -15,7 +15,7 @@
       - restart nginx
   handlers: 
     - name: restart nginx
-      service: name=nginx state:restarted
+      service: name=nginx state=restarted
 - hosts: db
   become: true
   become_user: root
