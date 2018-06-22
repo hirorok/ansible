@@ -3,14 +3,14 @@
   become: true
   become_user: root
   tasks:
-    - name: install nginx
+    - name: "install nginx"
       apk: name=nginx state=present
-    - name: start nginx
+    - name: "start nginx"
       service: name=nginx state=started enabled=yes
 - hosts: db
   become: true
   become_user: root
   tasks:
-    - name: install and start mariadb 
+    - name: "install and start mariadb" 
       apk: name=mysql state=present
       service: name=mariadb state=started enabled=yes
