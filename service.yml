@@ -13,4 +13,5 @@
   tasks:
     - name: "install and start mariadb" 
       apk: name=mysql state=present
+    - name: "install and start mariadb" 
       service: name=mariadb state=started enabled=yes
