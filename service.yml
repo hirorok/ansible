@@ -1,10 +1,39 @@
 --- # block separator
-- hosts: web
+--- # block separator
+- hosts: all
   become: true
   become_user: root
+  vars:
+    users: 
+      - "hirorok"
+      - "ansible"
   tasks:
+    - name: 'add users'
+      user: name="{{item}}" state=present
+      with_items: '{{users}}'
+- hosts: web
+  become: true
+  become_user: root group=www
+  tasks:
+    - name: add user
+      user: www 
     - name: "install nginx"
       apk: name=nginx state=present
+    - name: copy conf file
+      copy: 
+        src: ./nginx.conf
+        dest: /etc/nginx/nginx.conf
+      # create a directory if it doesn't exist
+    - name: chmod
+      file:
+          path: /www
+          state: directory
+          mode: 0755
+      file:
+        path: /var/lib/nginx
+        owner: www
+        group: www
+        mode: 0644
     - name: "start nginx"
       service: name=nginx state=started enabled=yes
     - name: "php instalal"
@@ -15,7 +44,7 @@
       - restart nginx
   handlers: 
     - name: restart nginx
-      service: name=nginx state:restarted
+      service: name=nginx state=restarted
 - hosts: db
   become: true
   become_user: root
