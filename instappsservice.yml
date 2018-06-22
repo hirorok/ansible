@@ -11,4 +11,4 @@
   become_user: root
   tasks:
     - apk: name=mysql state=present
-      service: name=mysqld state=started enabled=yes
+      service: name=mariadb state=started enabled=yes
