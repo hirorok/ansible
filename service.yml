@@ -3,8 +3,9 @@
   become: true
   become_user: root
   tasks:
-    - name: start apache and enabled
+    - name: install nginx
       apk: name=nginx state=present
+    - name: start nginx
       service: name=nginx state=started enabled=yes
 - hosts: db
   become: true
