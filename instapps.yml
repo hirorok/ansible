@@ -8,4 +8,4 @@
   become: true
   become_user: root
   tasks:
-    - apk: name=mysql state=present
+    - apk: name=mariadb state=present
