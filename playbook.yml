@@ -12,6 +12,6 @@
     - name: "add  a new user"
 #      user: name= '{{item.name}}' state=absent
 #      user: name= '{{ item }}' #state=present
-      user: name= usernames #state=present
+      user: name=usernames #state=present
       loop: 
         '{{ usernames }}'
