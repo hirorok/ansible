@@ -1,5 +1,4 @@
 --- # block separator
---- # block separator
 - hosts: all
   become: true
   become_user: root
@@ -11,24 +10,34 @@
     - name: 'add users'
       user: name="{{item}}" state=present
       with_items: '{{users}}'
+    - name: "install timezone"
+      apk: name=tzdata state=present
+    - name: "copy timezone filer"
+      shell: cp /usr/share/zoneinfo/Japan /etc/localtime
+      args:
+        creates: /etc/localtime/Japan
 - hosts: web
   become: true
-  become_user: root group=www
+  become_user: root
   tasks:
     - name: add user
-      user: www 
+      user: name=www 
     - name: "install nginx"
       apk: name=nginx state=present
     - name: copy conf file
       copy: 
         src: ./nginx.conf
         dest: /etc/nginx/nginx.conf
-      # create a directory if it doesn't exist
+    - name: copy index.html
+      copy: 
+        src: ./index.html
+        dest: /www
     - name: chmod
       file:
           path: /www
           state: directory
           mode: 0755
+    - name: chmod 2
       file:
         path: /var/lib/nginx
         owner: www
