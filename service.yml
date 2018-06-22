@@ -7,17 +7,15 @@
       apk: name=nginx state=present
     - name: "start nginx"
       service: name=nginx state=started enabled=yes
-    - name: php install
-      apk: name={{item}} state=latest
+    - name: "php instalal"
+      apk: name="{{item}}" state=present
       with_items:
         - php
-        - php-devel
-        - php-mbstring
-        - php-mysql
       notify:
-        - restart nginx
+      - restart nginx
   handlers: 
-    - restart nginx
+    - name: restart nginx
+      service: name=nginx state:restarted
 - hosts: db
   become: true
   become_user: root
